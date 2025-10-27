@@ -6,7 +6,7 @@ import ReviewProvider from "../context/review/ReviewProvider";
 function ProductReviews() {
   return (
     <ReviewProvider>
-      <div className="mt-20 w-[80%]">
+      <div className="mt-20 md:w-[80%] w-full">
         <h2 className="text-2xl font-semibold">Reviews and Rating</h2>
 
         <WriteReviewToProduct />
