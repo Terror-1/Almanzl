@@ -2,9 +2,7 @@ import { useFetch } from "../hooks/useFetch";
 import Error from "./Error";
 import LoadingSpinner from "./LoadingSpinner";
 export default function SubNav() {
-  const { data, loading, error } = useFetch(
-    "https://almanzl.com/api/v1/categories"
-  );
+  const { data, loading, error } = useFetch("/categories");
 
   if (loading) {
     return <LoadingSpinner resource={"categories"} />;
