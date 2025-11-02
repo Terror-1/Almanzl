@@ -1,28 +1,23 @@
+import LoadingSpinner from "../../components/LoadingSpinner";
 import AddProductToCart from "./components/AddProductToCart";
 import ProductDescription from "./components/ProductDescription";
 import ProductImages from "./components/ProductImages";
 import ProductInfo from "./components/ProductInfo";
 import ProductReviews from "./components/ProductReviews";
 import SimilarProducts from "./components/SimilarProducts";
+import useGetProductDetails from "./context/getProductDetails/useGetProductDetails";
 
 function ProductDetailsPage() {
-  const product = {
-    title: "New modern sofa is here",
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat quis eos vero est illo necessitatibus asperiores, inventore iusto dolorum, quibusdam adipisci temporibus iste doloremque nostrum architecto. Recusandae tenetur maxime repudiandae.",
-    date: "Sep 26, 2022",
-    by: "soroush norozy",
-    favoriteNumber: 5,
-    messageNumber: 5,
-    category: "Newest, sofa and chair, wooden",
-    images: [
-      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=870",
-      "https://plus.unsplash.com/premium_photo-1661765778256-169bf5e561a6?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=870",
-      "https://images.unsplash.com/photo-1512212621149-107ffe572d2f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=880",
-      "https://plus.unsplash.com/premium_photo-1672136336540-2dd39fd4d1e2?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=928",
-    ],
-    price: 299.99,
-  };
+  const [product, loading, error] = useGetProductDetails();
+
+  if (error) {
+    return <div className="text-red-500">Error: {error.message}</div>;
+  }
+
+  if (loading) {
+    return <LoadingSpinner resource={"Product"} />;
+  }
+
   const similarProducts = Array.from({ length: 4 }, () => product);
 
   return (

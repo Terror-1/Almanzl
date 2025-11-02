@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export default function ImageCarousel({ product }) {
-  const { images } = product;
+  const images = product.images.map((image) => image.url);
 
   const [index, setIndex] = useState(0);
 
@@ -21,10 +21,10 @@ export default function ImageCarousel({ product }) {
         className="flex transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${index * 100}%)` }}
       >
-        {images.map((src, i) => (
+        {images.map((url, i) => (
           <div key={i} className="min-w-full">
             <img
-              src={src}
+              src={url}
               alt={`Slide ${i + 1}`}
               className="w-full h-64 md:h-96 object-cover"
             />

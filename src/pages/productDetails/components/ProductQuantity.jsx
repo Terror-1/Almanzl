@@ -1,4 +1,4 @@
-import useProductQuantity from "../context/productQuantity/userProductQuantity";
+import useProductQuantity from "../context/productQuantity/useProductQuantity";
 
 function ProductQuantity() {
   const [quantity, setQuantity] = useProductQuantity();
