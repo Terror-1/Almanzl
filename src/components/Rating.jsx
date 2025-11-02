@@ -1,10 +1,10 @@
-/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 
 export default function Rating({
-  value = 0,
+  value,
   onChange,
   max = 5,
   size = 28,
@@ -12,14 +12,16 @@ export default function Rating({
   emptyColor = "#1E2939",
   readonly = false,
 }) {
+  const [internalValue, setInternalValue] = useState(value ?? 0);
   const [hoverValue, setHoverValue] = useState(undefined);
+
+  const currentValue = value ?? internalValue;
 
   const handleClick = (index, isHalf) => {
     if (readonly) return;
 
-    let newValue = isHalf ? index + 0.5 : index + 1;
-    if (index === 0 && isHalf) newValue = 0;
-
+    const newValue = isHalf ? index + 0.5 : index + 1;
+    setInternalValue(newValue);
     onChange?.(newValue);
   };
 
@@ -28,13 +30,10 @@ export default function Rating({
     const { left, width } = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - left;
     const isHalf = x < width / 2;
-
-    const newValue =
-      index === 0 && isHalf ? 0 : isHalf ? index + 0.5 : index + 1;
-    setHoverValue(newValue);
+    setHoverValue(isHalf ? index + 0.5 : index + 1);
   };
 
-  const displayValue = hoverValue ?? value;
+  const displayValue = hoverValue ?? currentValue;
 
   return (
     <div className="flex items-center space-x-1 select-none">

@@ -6,24 +6,23 @@ import ProductImages from "./components/ProductImages";
 import ProductInfo from "./components/ProductInfo";
 import ProductReviews from "./components/ProductReviews";
 import SimilarProducts from "./components/SimilarProducts";
-import Constants from "../../app/constants";
+import Error from "../../components/Error";
 
 function ProductDetailsPage() {
-  const {
-    data: product,
-    loading,
-    error,
-  } = useFetch(`${Constants.BASE_URL}/products/690716ee329f24ecdb9fe8ab`);
+  const { data, loading, error } = useFetch(
+    "products/690716ee329f24ecdb9fe8ab"
+  );
 
   if (error) {
-    return <div className="text-red-500">Error: {error.message}</div>;
+    return <Error message={error} />;
   }
 
   if (loading) {
     return <LoadingSpinner resource={"Product"} />;
   }
+  const product = data.data;
 
-  const similarProducts = Array.from({ length: 4 }, () => product);
+  console.log(`This is the product: ${JSON.stringify(product)}`);
 
   return (
     <div className="flex flex-col md:flex-row mx-4 md:mx-10 my-10 gap-15">
@@ -36,7 +35,7 @@ function ProductDetailsPage() {
       </div>
 
       <div className="w-full md:w-1/3 rounded-lg">
-        <SimilarProducts similarProducts={similarProducts} />
+        <SimilarProducts />
       </div>
     </div>
   );

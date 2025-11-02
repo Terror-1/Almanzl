@@ -1,7 +1,7 @@
 import ExpandableText from "../../../components/ExpandableText";
 import Rating from "../../../components/Rating";
 
-function Review() {
+function Review({ review }) {
   return (
     <div className="my-5">
       <div className="flex items-center me-auto">
