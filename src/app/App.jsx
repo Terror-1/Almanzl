@@ -3,8 +3,8 @@ import "./App.css";
 import DashboardLayout from "../pages/admin-dashboard/components/layout/DashboardLayout";
 // import SubNav from "../components/SubNav";
 // import ProductDetailsPage from "../pages/productDetails/ProductDetailsPage";
-// import Products from "../pages/admin-dashboard/Products";
-import Dashboard from "../pages/admin-dashboard/Dashboard";
+import Products from "../pages/admin-dashboard/Products";
+// import Dashboard from "../pages/admin-dashboard/Dashboard";
 // import Categories from "../pages/admin-dashboard/Categories";
 // import AddCategory from "../pages/admin-dashboard/AddCategory";
 // import AddProduct from "../pages/admin-dashboard/AddProduct";
@@ -18,7 +18,7 @@ function App() {
       <ToastContainer position="top-right" autoClose={3000} />
       <DashboardLayout>
         {" "}
-        <Dashboard />
+        <Products />
       </DashboardLayout>
     </>
   );
