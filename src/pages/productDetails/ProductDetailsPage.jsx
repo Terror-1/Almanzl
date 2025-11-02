@@ -1,14 +1,19 @@
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { useFetch } from "../../hooks/useFetch";
 import AddProductToCart from "./components/AddProductToCart";
 import ProductDescription from "./components/ProductDescription";
 import ProductImages from "./components/ProductImages";
 import ProductInfo from "./components/ProductInfo";
 import ProductReviews from "./components/ProductReviews";
 import SimilarProducts from "./components/SimilarProducts";
-import useGetProductDetails from "./context/getProductDetails/useGetProductDetails";
+import Constants from "../../app/constants";
 
 function ProductDetailsPage() {
-  const [product, loading, error] = useGetProductDetails();
+  const {
+    data: product,
+    loading,
+    error,
+  } = useFetch(`${Constants.BASE_URL}/products/690716ee329f24ecdb9fe8ab`);
 
   if (error) {
     return <div className="text-red-500">Error: {error.message}</div>;
