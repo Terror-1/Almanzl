@@ -8,12 +8,11 @@ import ProductReviews from "./components/ProductReviews";
 import SimilarProducts from "./components/SimilarProducts";
 import Error from "../../components/Error";
 import ProductReviewsProvider from "./context/productReviews/ProductReviewsProvider";
+import { useParams } from "react-router-dom";
 
 function ProductDetailsPage() {
-  const { data, loading, error } = useFetch(
-    "products/690716ee329f24ecdb9fe8ab"
-  );
-
+  const { id } = useParams();
+  const { data, loading, error } = useFetch(`/products/${id}`);
   if (error) {
     return <Error message={error} />;
   }
@@ -21,16 +20,15 @@ function ProductDetailsPage() {
   if (loading) {
     return <LoadingSpinner resource={"Product"} />;
   }
-  const product = data.data;
 
   return (
     <ProductReviewsProvider>
       <div className="flex flex-col md:flex-row mx-4 md:mx-10 my-10 gap-15">
         <div className="w-full md:w-2/3">
-          <ProductImages product={product} />
-          <ProductInfo product={product} />
-          <ProductDescription product={product} />
-          <AddProductToCart product={product} />
+          <ProductImages product={data} />
+          <ProductInfo product={data} />
+          <ProductDescription product={data} />
+          <AddProductToCart product={data} />
           <ProductReviews />
         </div>
 

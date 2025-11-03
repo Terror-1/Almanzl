@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import useProductReviews from "../context/productReviews/useProductReviews";
 import EditReviewModal from "./EditReviewModal";
 import api from "../../../lib/axios";
+import Default from "@/assets/default.jpg";
 
 function Review({ review }) {
   const { setProductReviews } = useProductReviews();
@@ -50,7 +51,7 @@ function Review({ review }) {
     <div className="my-5">
       <div className="flex items-center me-auto relative">
         <img
-          src={review.user.image ?? "src/assets/default.jpg"}
+          src={review.user.image ?? Default}
           alt="Reviewer"
           className="h-12 w-12 rounded-full object-cover"
         />

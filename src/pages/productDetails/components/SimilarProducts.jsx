@@ -1,11 +1,11 @@
+import { useParams } from "react-router-dom";
 import { useFetch } from "../../../hooks/useFetch";
 import ProductDescription from "./ProductDescription";
 import SimilarProductShimmer from "./SimilarProductShimmer";
 
 function SimilarProducts() {
-  const { data, loading, error } = useFetch(
-    "products/690716ee329f24ecdb9fe8ab/similar"
-  );
+  const { id } = useParams();
+  const { data, loading, error } = useFetch(`/products/${id}/similar`);
 
   if (error) {
     return <Error message={error} />;
@@ -16,12 +16,12 @@ function SimilarProducts() {
       <h2 className="mb-5 underline font-medium">Similar Products</h2>
       {loading ? (
         Array.from({ length: 3 }).map(() => <SimilarProductShimmer />)
-      ) : data.data.length == 0 ? (
+      ) : data.length == 0 ? (
         <p className="text-center text-2xl my-20 font-bold">
           No similar products found.
         </p>
       ) : (
-        data.data.map((prod, index) => {
+        data.map((prod, index) => {
           return (
             <div key={index} className="mb-8">
               <img

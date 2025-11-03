@@ -9,7 +9,6 @@ import useProductReviews from "../context/productReviews/useProductReviews";
 
 function ProductReviews() {
   const { productReviews, loading, error } = useProductReviews();
-
   if (error) {
     return <Error message={error} />;
   }
@@ -24,7 +23,9 @@ function ProductReviews() {
 
           <AddReviewToProduct />
           {loading ? (
-            Array.from({ length: 3 }).map(() => <ReviewShimmer />)
+            Array.from({ length: 3 }).map((index) => (
+              <ReviewShimmer key={index} />
+            ))
           ) : productReviews.length == 0 ? (
             <p className="text-center text-2xl my-20 font-bold">
               No reviews yet.

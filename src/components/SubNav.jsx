@@ -4,9 +4,7 @@ import LoadingSpinner from "./LoadingSpinner";
 import { Link } from "react-router-dom";
 
 export default function SubNav() {
-  const { data, loading, error } = useFetch(
-    "http://localhost:3000/api/categories"
-  );
+  const { data, loading, error } = useFetch("/categories");
 
   if (loading) return <LoadingSpinner resource="categories" />;
   if (error) return <Error resource="categories" error={error} />;
