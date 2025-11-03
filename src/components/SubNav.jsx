@@ -3,7 +3,7 @@ import Error from "./Error";
 import LoadingSpinner from "./LoadingSpinner";
 export default function SubNav() {
   const { data, loading, error } = useFetch(
-    "https://almanzl.com/api/v1/categories"
+    "http://localhost:3000/api/v1/categories"
   );
 
   if (loading) {
