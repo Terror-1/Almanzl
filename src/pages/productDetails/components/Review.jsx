@@ -64,19 +64,19 @@ function Review({ review }) {
           <div ref={menuRef} className="relative ml-2">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="p-1 hover:bg-gray-100 rounded-full"
+              className="p-1 hover:bg-gray-100 rounded-full cursor-pointer"
             >
               <MoreVertical size={20} />
             </button>
 
             {menuOpen && (
-              <div className="absolute right-0 mt-1 w-28 bg-white border  shadow-md z-10">
+              <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded-lg shadow-lg py-2 z-50">
                 <button
                   onClick={() => {
                     setMenuOpen(false);
                     setShowModal(true);
                   }}
-                  className="block w-full text-left px-3 py-2 hover:bg-gray-100"
+                  className="block w-full text-left px-3 py-2 text-green-700 hover:bg-gray-100 cursor-pointer"
                 >
                   Update
                 </button>
@@ -85,7 +85,7 @@ function Review({ review }) {
                     setMenuOpen(false);
                     onDelete();
                   }}
-                  className="block w-full text-left px-3 py-2 hover:bg-gray-100 text-red-500"
+                  className=" block w-full text-left px-3 py-2 hover:bg-gray-100 text-red-500 cursor-pointer"
                 >
                   Delete
                 </button>

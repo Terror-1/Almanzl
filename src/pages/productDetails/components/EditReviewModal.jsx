@@ -78,7 +78,7 @@ function EditReviewModal({ review, onClose }) {
           <div className="flex justify-end gap-2 mt-5">
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100"
+              className="px-4 py-2 rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100 cursor-pointer"
             >
               Cancel
             </button>
