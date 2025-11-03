@@ -1,29 +1,25 @@
 import { useFetch } from "../hooks/useFetch";
 import Error from "./Error";
 import LoadingSpinner from "./LoadingSpinner";
+import { Link } from "react-router-dom";
+
 export default function SubNav() {
-  const { data, loading, error } = useFetch(
-    "https://almanzl.com/api/v1/categories"
-  );
+  const { data, loading, error } = useFetch("/categories");
 
-  if (loading) {
-    return <LoadingSpinner resource={"categories"} />;
-  }
-
-  if (error) {
-    return <Error resource={"categories"} error={error} />;
-  }
+  if (loading) return <LoadingSpinner resource="categories" />;
+  if (error) return <Error resource="categories" error={error} />;
 
   return (
-    <div className="w-full bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center justify-center gap-6 text-sm">
+    <div className="w-full bg-secondary text-white">
+      <div className="max-w-7xl mx-auto flex items-center justify-start gap-6 px-6 py-3 overflow-x-auto whitespace-nowrap scrollbar-hide">
         {data?.map((category) => (
-          <button
-            key={category.id}
-            className="px-4 py-1.5 rounded-full bg-gray-700 hover:bg-gray-600 transition-colors duration-200"
+          <Link
+            key={category._id}
+            to={`/category/${category._id}`}
+            className="text-sm hover:text-yellow-400 transition-colors duration-200"
           >
             {category.name}
-          </button>
+          </Link>
         ))}
       </div>
     </div>

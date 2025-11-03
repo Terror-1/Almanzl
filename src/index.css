@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 @import "tailwindcss";
+
+@theme {
+  --color-primary: #00000;
+  --color-secondary: #232f3e;
+  --color-hover: #f2b400;
+  --font-sans: "Poppins", sans-serif;
+}
 body {
   font-family: "Poppins", sans-serif;
 }

@@ -1,14 +1,22 @@
 import "./App.css";
-import Navbar from "../components/Navbar";
-import SubNav from "../components/SubNav";
+
+import { ToastContainer } from "react-toastify";
+import { BrowserRouter as Router } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import AppRoutes from "./app.routes";
+import { AuthProvider } from "../pages/authentication/context/AuthProvider";
+import { CartProvider } from "../pages/cart/context/CartProvider";
 
 function App() {
   return (
-    <>
-      <Navbar />
-      <SubNav />
-    </>
+    <Router>
+      <AuthProvider>
+        <CartProvider>
+          <ToastContainer position="top-right" autoClose={3000} />
+          <AppRoutes />
+        </CartProvider>
+      </AuthProvider>
+    </Router>
   );
 }
-
 export default App;
