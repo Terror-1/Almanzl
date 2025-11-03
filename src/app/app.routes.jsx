@@ -18,12 +18,13 @@ import SuccessPayment from "../pages/checkout/SuccessPayment";
 import CancelPayment from "../pages/checkout/CancelPayment";
 import SucessCashPayment from "../pages/checkout/SuccessCashPayment";
 import ProductProvider from "../pages/productDetails/context/product/ProductProvider";
+import HomePage from "../pages/HomePage";
 
 function AppRoutes() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
-        <Route path="/" element={<h1>home</h1>} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<h1>products</h1>} />
         <Route
           path="/products/:id"

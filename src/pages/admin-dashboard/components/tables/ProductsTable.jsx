@@ -89,9 +89,6 @@ const ProductsTable = ({
                     ) : (
                       <div>
                         <p className="font-medium text-gray-900">{p.name}</p>
-                        <p className="text-sm text-gray-500">
-                          {p.brand || "Unknown Brand"}
-                        </p>
                       </div>
                     )}
                   </td>

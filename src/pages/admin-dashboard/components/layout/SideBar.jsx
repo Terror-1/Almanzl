@@ -15,7 +15,6 @@ import {
 
 const Sidebar = ({ onClose }) => {
   const location = useLocation();
-
   const [isProductsOpen, setIsProductsOpen] = useState(false);
   const [isCategoriesOpen, setIsCategoriesOpen] = useState(false);
   const [activeLink, setActiveLink] = useState();
