@@ -29,7 +29,7 @@ function SimilarProducts() {
               <img
                 src={prod.images[0].url}
                 alt={prod.title}
-                className="w-full h-32 md:h-64 object-cover hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+                className="w-full h-32 md:h-64 object-contain hover:scale-[1.02] transition-all duration-300 cursor-pointer"
               />
               <ProductDescription
                 product={prod}
