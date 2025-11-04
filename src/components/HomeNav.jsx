@@ -63,7 +63,7 @@ export default function HomeNav() {
           {user ? (
             <span className="font-semibold">{user.name}</span>
           ) : (
-            <Link to="/signin" className="font-semibold">
+            <Link to="/login" className="font-semibold">
               Sign In
             </Link>
           )}

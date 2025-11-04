@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ShippingAddress from "./components/ShippingAddress";
 import PaymentMethod from "./components/PaymentMethod";
 import OrderItems from "./components/OrderItems";
@@ -14,6 +14,12 @@ const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [loading, setLoading] = useState(false);
   const { cart } = useContext(CartContext);
+  useEffect(() => {
+    if (!user) {
+      toast.info("Please log in to continue checkout");
+      navigate("/sign");
+    }
+  }, [user, navigate]);
   const itemsPrice = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0

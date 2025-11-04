@@ -4,7 +4,7 @@ import {
   useGetTopProductsQuery,
   useGetSalesByGovernorateQuery,
 } from "../../slices/statisticsSlice";
-import SalesChart from "./components/charts/salesChart";
+import SalesChart from "./components/charts/SalesChart";
 import MetricCard from "./components/cards/MetricCard";
 import TopProductsTable from "./components/tables/TopProducts";
 import CustomerDistributionChart from "./components/charts/CustomerDistributionChart";
