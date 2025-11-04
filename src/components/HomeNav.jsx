@@ -101,12 +101,13 @@ export default function HomeNav() {
                 >
                   Cart
                 </Link>
-                <button
+                <Link
+                  to="/login"
                   onClick={logout}
                   className="block w-full text-left px-4 py-2 hover:bg-yellow-400 text-sm text-red-500 cursor-pointer"
                 >
                   Logout
-                </button>
+                </Link>
               </div>
             )}
           </div>

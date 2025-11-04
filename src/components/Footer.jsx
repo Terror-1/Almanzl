@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className=" text-gray-200 py-12" style={{ background: "#2B2B2B" }}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div>
-          <h3 className="text-xl font-semibold mb-4">MyShop</h3>
+          <h3 className="text-xl font-semibold mb-4">Almanzl</h3>
           <p className="text-gray-400">
             Your one-stop shop for quality products. We bring you the best
             selections every week.
