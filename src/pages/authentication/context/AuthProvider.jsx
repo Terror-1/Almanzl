@@ -45,7 +45,7 @@ export function AuthProvider({ children }) {
         const res = await api.post("/auth/login", payload);
         const data = res.data?.data || res.data?.user || res.data;
         persistAuth(data);
-        return true;
+        return data;
       } catch (e) {
         toast.error(e.response?.data?.message || "Login failed");
         return false;

@@ -16,9 +16,13 @@ export default function Login() {
       toast.error("Email and password are required");
       return;
     }
-    const isSuccess = await login(form);
-    if (isSuccess) {
-      navigate(from, { replace: true });
+    const user = await login(form);
+    if (user) {
+      if (user.isAdmin) {
+        navigate("/admin/dashboard", { replace: true });
+      } else {
+        navigate(from, { replace: true });
+      }
     }
   };
 
