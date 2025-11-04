@@ -2,9 +2,12 @@ import { Search, ShoppingBag, Menu } from "lucide-react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../pages/authentication/context/AuthContext";
+import SearchContext from "../context/search/SearchContext";
 
 export default function Navbar() {
   const { user, logout } = useContext(AuthContext);
+  const { query, setQuery } = useContext(SearchContext);
+
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const menuRef = useRef(null);
@@ -18,6 +21,10 @@ export default function Navbar() {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+  const handleSearch = (e) => {
+    setQuery(e.target.value);
+  };
 
   return (
     <nav className="w-full bg-black text-white px-6 md:px-10 py-4 flex items-center justify-between font-poppins">
@@ -49,6 +56,8 @@ export default function Navbar() {
             type="text"
             placeholder="Search in almanzl..."
             className="bg-transparent text-sm text-white outline-none placeholder-gray-400 w-full px-2"
+            onChange={handleSearch}
+            value={query}
           />
         </div>
       </div>

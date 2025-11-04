@@ -13,13 +13,14 @@ import MainLayout from "./Layout/MainLayout";
 import NotFound from "../components/NotFound";
 import ProductDetailsPage from "../pages/productDetails/ProductDetailsPage";
 import ProductProvider from "../pages/productDetails/context/product/ProductProvider";
+import AllProducts from "../components/AllProducts";
 
 function AppRoutes() {
   return (
     <Routes>
       <Route element={<MainLayout />}>
         <Route path="/" element={<h1>home</h1>} />
-        <Route path="/products" element={<h1>products</h1>} />
+        <Route path="/products" element={<AllProducts />} />
         <Route
           path="/products/:id"
           element={
