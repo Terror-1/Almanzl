@@ -2,20 +2,18 @@ import { useContext, useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../authentication/context/AuthContext";
 import LoadingButton from "../../../components/LoadingButton";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import ErrorBar from "../../../components/Error";
+import { toast } from "react-toastify";
 
 export default function Login() {
-  const { login, loading, error, setError } = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const from = useLocation().state?.from?.pathname || "/";
 
   const [form, setForm] = useState({ email: "", password: "" });
 
   const submit = async () => {
-    setError("");
     if (!form.email || !form.password) {
-      setError("Email and password are required");
+      toast.error("Email and password are required");
       return;
     }
     await login(form);
@@ -25,9 +23,6 @@ export default function Login() {
   return (
     <div className="max-w-md mx-auto mt-16 p-6 bg-white shadow rounded">
       <h1 className="text-xl font-semibold mb-4">Sign in</h1>
-
-      {loading && <LoadingSpinner resource="auth" />}
-      {error && <ErrorBar resource="auth" error={error} />}
 
       <div className="space-y-3">
         <input

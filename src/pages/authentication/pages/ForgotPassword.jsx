@@ -3,17 +3,17 @@ import { AuthContext } from "../../authentication/context/AuthContext";
 import LoadingButton from "../../../components/LoadingButton";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import ErrorBar from "../../../components/Error";
+import { toast } from "react-toastify";
 
 export default function ForgotPassword() {
-  const { forgotPassword, loading, error, setError } = useContext(AuthContext);
+  const { forgotPassword } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
 
   const submit = async () => {
-    setError("");
     setMsg("");
     if (!email) {
-      setError("Email is required");
+      toast.error("Email is required");
       return;
     }
     await forgotPassword({ email });
@@ -26,8 +26,6 @@ export default function ForgotPassword() {
       <p className="text-gray-600 mb-3">
         Enter your email; we’ll send a reset link.
       </p>
-      {loading && <LoadingSpinner resource="auth" />}
-      {error && <ErrorBar resource="auth" error={error} />}
       {msg && <div className="text-green-700 mb-2">{msg}</div>}
 
       <div className="space-y-3">

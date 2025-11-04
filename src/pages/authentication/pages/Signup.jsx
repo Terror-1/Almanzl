@@ -2,11 +2,10 @@ import { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../authentication/context/AuthContext";
 import LoadingButton from "../../../components/LoadingButton";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import ErrorBar from "../../../components/Error";
+import { toast } from "react-toastify";
 
 export default function Signup() {
-  const { signup, loading, error, setError } = useContext(AuthContext);
+  const { signup } = useContext(AuthContext);
   const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
@@ -17,13 +16,12 @@ export default function Signup() {
   });
 
   const submit = async () => {
-    setError("");
     if (!form.name || !form.phone || !form.email || !form.password) {
-      setError("All fields are required");
+      toast.error("All fields are required");
       return;
     }
     if (form.password !== form.passwordConfirm) {
-      setError("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
     await signup(form);
@@ -33,8 +31,6 @@ export default function Signup() {
   return (
     <div className="max-w-lg mx-auto mt-16 p-6 bg-white shadow rounded">
       <h1 className="text-xl font-semibold mb-4">Create account</h1>
-      {loading && <LoadingSpinner resource="auth" />}
-      {error && <ErrorBar resource="auth" error={error} />}
 
       <div className="grid grid-cols-1 gap-3">
         {["name", "phone", "email"].map((k) => (

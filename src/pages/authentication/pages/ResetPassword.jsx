@@ -2,26 +2,24 @@ import { useContext, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { AuthContext } from "../../authentication/context/AuthContext";
 import LoadingButton from "../../../components/LoadingButton";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import ErrorBar from "../../../components/Error";
+import { toast } from "react-toastify";
 
 export default function ResetPassword() {
   const { token } = useParams();
   const navigate = useNavigate();
-  const { resetPassword, loading, error, setError } = useContext(AuthContext);
+  const { resetPassword } = useContext(AuthContext);
 
   const [form, setForm] = useState({ password: "", passwordConfirm: "" });
   const [msg, setMsg] = useState("");
 
   const submit = async () => {
-    setError("");
     setMsg("");
     if (!form.password || !form.passwordConfirm) {
-      setError("Please fill both fields");
+      toast.error("Please fill both fields");
       return;
     }
     if (form.password !== form.passwordConfirm) {
-      setError("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
     await resetPassword(token, { password: form.password });
@@ -32,8 +30,6 @@ export default function ResetPassword() {
   return (
     <div className="max-w-md mx-auto mt-16 p-6 bg-white shadow rounded">
       <h1 className="text-xl font-semibold mb-4">Reset password</h1>
-      {loading && <LoadingSpinner resource="auth" />}
-      {error && <ErrorBar resource="auth" error={error} />}
       {msg && <div className="text-green-700 mb-2">{msg}</div>}
 
       <div className="space-y-3">
