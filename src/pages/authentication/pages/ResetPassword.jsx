@@ -22,9 +22,12 @@ export default function ResetPassword() {
       toast.error("Passwords do not match");
       return;
     }
-    await resetPassword(token, { password: form.password });
-    setMsg("Password reset successful. You can now log in.");
-    setTimeout(() => navigate("/login"), 1200);
+    const isSuccess = await resetPassword(token, { password: form.password });
+    if (isSuccess) {
+      setMsg("Password reset successful. You can now log in.");
+
+      setTimeout(() => navigate("/login"), 1200);
+    }
   };
 
   return (

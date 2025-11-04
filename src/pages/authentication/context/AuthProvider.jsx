@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
 import api from "../../../lib/axios";
 import { toast } from "react-toastify";
+import { AuthContext } from "./AuthContext";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -29,9 +30,10 @@ export function AuthProvider({ children }) {
         const res = await api.post("/auth/signup", payload);
         const data = res.data?.data || res.data?.user || res.data;
         persistAuth(data);
-        return data;
+        return true;
       } catch (e) {
         toast.error(e.response?.data?.message || "Signup failed");
+        return false;
       }
     },
     [persistAuth]
@@ -43,9 +45,10 @@ export function AuthProvider({ children }) {
         const res = await api.post("/auth/login", payload);
         const data = res.data?.data || res.data?.user || res.data;
         persistAuth(data);
-        return data;
+        return true;
       } catch (e) {
         toast.error(e.response?.data?.message || "Login failed");
+        return false;
       }
     },
     [persistAuth]
@@ -54,16 +57,20 @@ export function AuthProvider({ children }) {
   const forgotPassword = useCallback(async ({ email }) => {
     try {
       await api.post("/auth/forgotPassword", { email });
+      return true;
     } catch (e) {
       toast.error(e.response?.data?.message || "Forgot password failed");
+      return false;
     }
   }, []);
 
   const resetPassword = useCallback(async (token, { password }) => {
     try {
       await api.patch(`/auth/resetPassword/${token}`, { password });
+      return true;
     } catch (e) {
       toast.error(e.response?.data?.message || "Reset Password failed");
+      return false;
     }
   }, []);
 

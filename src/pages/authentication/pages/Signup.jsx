@@ -24,8 +24,10 @@ export default function Signup() {
       toast.error("Passwords do not match");
       return;
     }
-    await signup(form);
-    navigate("/", { replace: true });
+    const isSuccess = await signup(form);
+    if (isSuccess) {
+      navigate("/", { replace: true });
+    }
   };
 
   return (
