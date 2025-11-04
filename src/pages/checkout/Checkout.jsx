@@ -30,6 +30,7 @@ const Checkout = () => {
       return;
     }
     const payload = {
+      orderItems: cart,
       shippingAddress: user.address,
       itemsPrice,
       shippingPrice: 50,
