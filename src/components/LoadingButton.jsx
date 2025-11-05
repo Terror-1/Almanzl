@@ -18,12 +18,18 @@ export default function LoadingButton({
   loaderColor = "#fff",
   duration = 0.4,
   style = {},
+  disabled = false,
 }) {
   const [isLoading, setIsLoading] = useState(false);
   const [showText, setShowText] = useState(true);
 
-  const handleClick = async () => {
-    if (isLoading) return;
+  const handleClick = async (e) => {
+    if (disabled || isLoading) {
+      e.preventDefault();
+      e.stopPropagation();
+      return;
+    }
+
     setIsLoading(true);
     setShowText(false);
 
@@ -39,6 +45,7 @@ export default function LoadingButton({
 
   return (
     <motion.button
+      disabled={disabled}
       onClick={handleClick}
       animate={{
         width: isLoading ? height : width,
@@ -48,6 +55,7 @@ export default function LoadingButton({
       style={{
         backgroundColor: color,
         color: textColor,
+        opacity: disabled ? 0.6 : 1,
         border: `1px solid ${borderColor || color}`,
         height,
         fontSize,
@@ -56,7 +64,7 @@ export default function LoadingButton({
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
-        cursor: isLoading ? "not-allowed" : "pointer",
+        cursor: disabled || isLoading ? "not-allowed" : "pointer",
         ...style,
       }}
     >

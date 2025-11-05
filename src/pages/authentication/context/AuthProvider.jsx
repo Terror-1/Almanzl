@@ -26,8 +26,14 @@ export function AuthProvider({ children }) {
 
   const signup = useCallback(
     async (payload) => {
+      const body = {
+        name: payload.name,
+        phone: payload.phone,
+        email: payload.email,
+        password: payload.password,
+      };
       try {
-        const res = await axios.post("/auth/signup", payload);
+        const res = await axios.post("/auth/signup", body);
         const data = res.data?.data || res.data?.user || res.data;
         persistAuth(data);
         return true;
@@ -45,7 +51,7 @@ export function AuthProvider({ children }) {
         const res = await axios.post("/auth/login", payload);
         const data = res.data?.data || res.data?.user || res.data;
         persistAuth(data);
-        return true;
+        return data;
       } catch (e) {
         toast.error(e.response?.data?.message || "Login failed");
         return false;

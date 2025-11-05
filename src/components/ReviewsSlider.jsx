@@ -6,19 +6,19 @@ const reviews = [
     id: 1,
     name: "Soroush Norozy",
     title: "Designer",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Tellus vitae congue id ipsum sed neque et dui accumsan. Nibh semper magna facilisi ridiculus luctus amet. Aliquam.",
+    text: "The craftsmanship and attention to detail are outstanding. Every chair and table feels like a statement piece—beautifully designed and built to last. I always recommend this brand to my clients who value both style and quality.",
   },
   {
     id: 2,
     name: "Emma Thompson",
     title: "Interior Stylist",
-    text: "Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Integer posuere erat a ante venenatis dapibus posuere velit aliquet.",
+    text: "Their collections make styling any space effortless. The textures, finishes, and modern silhouettes add the perfect touch of elegance to my design projects. Absolutely love working with their furniture pieces.",
   },
   {
     id: 3,
     name: "Michael Chen",
     title: "Furniture Craftsman",
-    text: "Aenean lacinia bibendum nulla sed consectetur. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec ullamcorper nulla non metus auctor fringilla.",
+    text: "As someone who values good craftsmanship, I’m impressed by the precision and durability of their work. Each item reflects true artistry and passion for design—something that’s becoming rare these days.",
   },
 ];
 

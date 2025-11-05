@@ -36,6 +36,7 @@ const productsData = [
 ];
 
 const TopProductsTable = ({ data }) => {
+  console.log(data);
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm">
       <h3 className="text-lg font-semibold mb-4">Top Selling Products</h3>
@@ -58,45 +59,49 @@ const TopProductsTable = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {(data.length > 0 ? data : productsData).map((product, index) => (
-              <tr
-                key={index}
-                className="border-b border-gray-100 hover:bg-gray-50"
-              >
-                <td className="py-3 px-4">
-                  <div>
-                    <p className="font-medium text-gray-900">
-                      {product.product}
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      {product.country} • {product.revenue}
-                    </p>
-                  </div>
-                </td>
-                <td className="py-3 px-4 text-gray-600">{product.category}</td>
-                <td className="py-3 px-4">
-                  <div className="flex items-center">
-                    {product.stock === "Available" ? (
-                      <>
-                        <CheckCircle
-                          size={16}
-                          className="text-green-500 mr-1"
-                        />
-                        <span className="text-green-600">Available</span>
-                      </>
-                    ) : (
-                      <>
-                        <XCircle size={16} className="text-red-500 mr-1" />
-                        <span className="text-red-600">Sold Out</span>
-                      </>
-                    )}
-                  </div>
-                </td>
-                <td className="py-3 px-4 font-semibold text-gray-900">
-                  {product.totalSales}
-                </td>
-              </tr>
-            ))}
+            {(data?.data?.length > 0 ? data.data : productsData).map(
+              (product, index) => (
+                <tr
+                  key={index}
+                  className="border-b border-gray-100 hover:bg-gray-50"
+                >
+                  <td className="py-3 px-4">
+                    <div>
+                      <p className="font-medium text-gray-900">
+                        {product.product}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        {product.country} • {product.revenue}
+                      </p>
+                    </div>
+                  </td>
+                  <td className="py-3 px-4 text-gray-600">
+                    {product.category}
+                  </td>
+                  <td className="py-3 px-4">
+                    <div className="flex items-center">
+                      {product.stock === "Available" ? (
+                        <>
+                          <CheckCircle
+                            size={16}
+                            className="text-green-500 mr-1"
+                          />
+                          <span className="text-green-600">Available</span>
+                        </>
+                      ) : (
+                        <>
+                          <XCircle size={16} className="text-red-500 mr-1" />
+                          <span className="text-red-600">Sold Out</span>
+                        </>
+                      )}
+                    </div>
+                  </td>
+                  <td className="py-3 px-4 font-semibold text-gray-900">
+                    {product.totalSales}
+                  </td>
+                </tr>
+              )
+            )}
           </tbody>
         </table>
       </div>

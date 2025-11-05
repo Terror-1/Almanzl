@@ -3,12 +3,15 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../pages/authentication/context/AuthContext";
 import { CartContext } from "../pages/cart/context/CartContext";
+import SearchContext from "../context/search/SearchContext";
 
 export default function Navbar() {
   const { cart } = useContext(CartContext);
   const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const { user, logout } = useContext(AuthContext);
+  const { query, setQuery } = useContext(SearchContext);
+
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const menuRef = useRef(null);
@@ -22,6 +25,10 @@ export default function Navbar() {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
+  const handleSearch = (e) => {
+    setQuery(e.target.value);
+  };
 
   return (
     <nav className="w-full bg-black text-white px-6 md:px-10 py-4 flex items-center justify-between font-poppins">
@@ -53,6 +60,8 @@ export default function Navbar() {
             type="text"
             placeholder="Search in almanzl..."
             className="bg-transparent text-sm text-white outline-none placeholder-gray-400 w-full px-2"
+            onChange={handleSearch}
+            value={query}
           />
         </div>
       </div>
@@ -111,12 +120,13 @@ export default function Navbar() {
                 >
                   Cart
                 </Link>
-                <button
+                <Link
+                  to="/login"
                   onClick={logout}
                   className="block w-full text-left px-4 py-2 hover:bg-yellow-400 text-sm text-red-500 cursor-pointer"
                 >
                   Logout
-                </button>
+                </Link>
               </div>
             )}
           </div>
