@@ -97,6 +97,17 @@ export function AuthProvider({ children }) {
     [user]
   );
 
+  const updateFavorites = useCallback(
+    (newFavorites) => {
+      if (!user) return;
+
+      const updatedUser = { ...user, favorites: newFavorites };
+      setUser(updatedUser);
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+    },
+    [user]
+  );
+
   const value = useMemo(
     () => ({
       user,
@@ -106,8 +117,18 @@ export function AuthProvider({ children }) {
       resetPassword,
       logout,
       updateAddress,
+      updateFavorites,
     }),
-    [user, login, signup, forgotPassword, resetPassword, logout, updateAddress]
+    [
+      user,
+      login,
+      signup,
+      forgotPassword,
+      resetPassword,
+      logout,
+      updateAddress,
+      updateFavorites,
+    ]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
