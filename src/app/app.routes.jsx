@@ -1,37 +1,45 @@
 import { Routes, Route } from "react-router-dom";
 
-// Admin Dashboard Pages
-import DashboardLayout from "../pages/admin-dashboard/components/layout/DashboardLayout";
-import Products from "../pages/admin-dashboard/Products";
-import Orders from "../pages/admin-dashboard/Orders";
-import Dashboard from "../pages/admin-dashboard/Dashboard";
-import Categories from "../pages/admin-dashboard/Categories";
-import AddCategory from "../pages/admin-dashboard/AddCategory";
-import AddProduct from "../pages/admin-dashboard/AddProduct";
-import UsersTable from "../pages/admin-dashboard/components/tables/Users";
 import MainLayout from "./Layout/MainLayout";
-import NotFound from "../components/NotFound";
+import DashboardLayout from "../pages/admin-dashboard/components/layout/DashboardLayout";
+import HomePage from "../pages/HomePage";
+import AllProducts from "../components/AllProducts";
 import ProductDetailsPage from "../pages/productDetails/ProductDetailsPage";
-import Checkout from "../pages/checkout/Checkout";
+import ProductProvider from "../pages/productDetails/context/product/ProductProvider";
 import Cart from "../pages/cart/Cart";
+import Checkout from "../pages/checkout/Checkout";
 import SuccessPayment from "../pages/checkout/SuccessPayment";
 import CancelPayment from "../pages/checkout/CancelPayment";
 import SucessCashPayment from "../pages/checkout/SuccessCashPayment";
-import ProductProvider from "../pages/productDetails/context/product/ProductProvider";
-import HomePage from "../pages/HomePage";
+import Profile from "../pages/ProfilePage";
+import Contact from "../pages/Contact/contact";
+import AboutUs from "../pages/aboutUs/aboutUs";
 import Login from "../pages/authentication/pages/Login";
 import Signup from "../pages/authentication/pages/Signup";
 import ForgotPassword from "../pages/authentication/pages/ForgotPassword";
 import ResetPassword from "../pages/authentication/pages/ResetPassword";
-import Profile from "../pages/ProfilePage";
-import AllProducts from "../components/AllProducts";
+import CategoryPage from "../pages/CategoryPage";
+
+import NotFound from "../components/NotFound";
+import UnAuthorized from "../components/UnAuthorized";
+import ProtectedRoutes from "./ProtectedRoutes";
+
+import Dashboard from "../pages/admin-dashboard/Dashboard";
+import Products from "../pages/admin-dashboard/Products";
+import Orders from "../pages/admin-dashboard/Orders";
+import Categories from "../pages/admin-dashboard/Categories";
+import AddCategory from "../pages/admin-dashboard/AddCategory";
+import AddProduct from "../pages/admin-dashboard/AddProduct";
+import UsersTable from "../pages/admin-dashboard/components/tables/Users";
 
 function AppRoutes() {
   return (
     <Routes>
+      {/* Public Routes */}
       <Route element={<MainLayout />}>
         <Route path="/" element={<HomePage />} />
         <Route path="/products" element={<AllProducts />} />
+        <Route path="/category/:categoryId" element={<CategoryPage />} />
         <Route
           path="/products/:id"
           element={
@@ -40,8 +48,8 @@ function AppRoutes() {
             </ProductProvider>
           }
         />
-        <Route path="/contact" element={<h1>contact</h1>} />
-        <Route path="/about" element={<h1>about</h1>} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<AboutUs />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
@@ -49,30 +57,36 @@ function AppRoutes() {
         <Route path="/resetPassword/:token" element={<ResetPassword />} />
         <Route path="/orders" element={<h1>orders</h1>} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/payment-success" element={<SuccessPayment />} />
-        <Route path="/payment-success-cash" element={<SucessCashPayment />} />
-        <Route path="/payment-cancel" element={<CancelPayment />} />
-        <Route path="/checkout" element={<Checkout />} />
+
+        {/* User routes */}
+        <Route element={<ProtectedRoutes userOnly />}>
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/payment-success" element={<SuccessPayment />} />
+          <Route path="/payment-success-cash" element={<SucessCashPayment />} />
+          <Route path="/payment-cancel" element={<CancelPayment />} />
+        </Route>
       </Route>
 
-      <Route path="/admin" element={<DashboardLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="dashboard" element={<Dashboard />} />
-        <Route path="products">
-          <Route index element={<Products />} />
-          <Route path="add" element={<AddProduct />} />
+      {/* Admin routes */}
+      <Route element={<ProtectedRoutes adminOnly />}>
+        <Route path="/admin" element={<DashboardLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="products">
+            <Route index element={<Products />} />
+            <Route path="add" element={<AddProduct />} />
+          </Route>
+          <Route path="orders" element={<Orders />} />
+          <Route path="categories">
+            <Route index element={<Categories />} />
+            <Route path="add" element={<AddCategory />} />
+          </Route>
+          <Route path="users" element={<UsersTable />} />
         </Route>
-        <Route path="orders" element={<Orders />} />
-
-        <Route path="categories">
-          <Route index element={<Categories />} />
-          <Route path="add" element={<AddCategory />} />
-        </Route>
-
-        <Route path="users" element={<UsersTable />} />
       </Route>
 
-      <Route path="*" element={<NotFound></NotFound>} />
+      <Route path="/unauthorized" element={<UnAuthorized />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
