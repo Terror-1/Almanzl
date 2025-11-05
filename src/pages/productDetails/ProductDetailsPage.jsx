@@ -30,8 +30,8 @@ function ProductDetailsPage() {
 
   return (
     <ProductReviewsProvider>
-      <div className="flex flex-col md:flex-row mx-4 md:mx-10 my-10 gap-15">
-        <div className="w-full md:w-2/3">
+      <div className="flex flex-col md:flex-row mx-4 md:mx-10 my-10 gap-5">
+        <div className="w-full md:w-3/4">
           <ProductImagesCarousel product={product} />
           <ProductInfo product={product} />
           <ProductDescription product={product} />
@@ -41,7 +41,7 @@ function ProductDetailsPage() {
           <ProductReviews />
         </div>
 
-        <div className="w-full md:w-1/3 rounded-lg">
+        <div className="w-full md:w-1/4 rounded-lg">
           <SimilarProducts />
         </div>
       </div>

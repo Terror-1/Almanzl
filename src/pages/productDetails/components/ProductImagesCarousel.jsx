@@ -44,7 +44,7 @@ export default function ProductImagesCarousel({ product }) {
 
   return (
     <>
-      <div className="relative w-full max-w-4xl mx-auto overflow-hidden shadow-xl bg-gray-800">
+      <div className="relative w-full max-w-4xl overflow-hidden shadow-xl bg-gray-800">
         {images.length > 0 ? (
           <div
             onTouchStart={handleTouchStart}
