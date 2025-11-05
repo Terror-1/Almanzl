@@ -29,8 +29,8 @@ export const ProductsProvider = ({ children }) => {
     const isProductsPage = location.pathname.startsWith('/products');
 
     useEffect(() => {
-        if(!isProductsPage) return;
-        
+        if (!isProductsPage) return;
+
         const params = {
             page: page.toString(),
             limit: limit.toString(),

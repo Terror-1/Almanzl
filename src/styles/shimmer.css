@@ -1,0 +1,25 @@
+.shimmer {
+    position: relative;
+    overflow: hidden;
+    background-color: #f2f2f2;
+}
+
+.shimmer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.4) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    animation: shimmer-move 1.3s infinite;
+}
+
+@keyframes shimmer-move {
+    100% {
+        left: 150%;
+    }
+}
