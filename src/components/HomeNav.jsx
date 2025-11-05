@@ -2,9 +2,12 @@ import { Search, ShoppingBag, Menu } from "lucide-react";
 import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../pages/authentication/context/AuthContext";
+import { CartContext } from "../pages/cart/context/CartContext";
 
 export default function HomeNav() {
   const { user, logout } = useContext(AuthContext);
+  const { cart } = useContext(CartContext);
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
   const menuRef = useRef(null);
@@ -41,7 +44,6 @@ export default function HomeNav() {
         </ul>
       </div>
 
-      {/* Search Bar (centered on desktop) */}
       <div className="hidden md:flex flex-1 justify-center mx-8">
         <div className="flex items-center w-full max-w-lg bg-white/10 backdrop-blur-sm rounded-lg px-4 py-2 border border-white/20">
           <Search className="w-4 h-4 text-gray-200" />
@@ -53,7 +55,6 @@ export default function HomeNav() {
         </div>
       </div>
 
-      {/* User + Cart + Menu */}
       <div className="flex items-center gap-6 relative" ref={menuRef}>
         <div
           className="flex flex-col text-sm hover:text-yellow-400 transition cursor-pointer"
@@ -69,10 +70,17 @@ export default function HomeNav() {
           )}
         </div>
 
-        <ShoppingBag
+        <div
+          className="flex items-center gap-1 cursor-pointer"
           onClick={() => navigate("/cart")}
-          className="w-5 h-5 cursor-pointer hover:text-yellow-400 transition"
-        />
+        >
+          <ShoppingBag className="w-5 h-5 hover:text-hover" />
+          {totalItems > 0 && (
+            <span className="text-sm font-semibold text-hover">
+              {totalItems}
+            </span>
+          )}
+        </div>
 
         {user && (
           <div className="relative">

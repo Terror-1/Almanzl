@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import ShippingAddress from "./components/ShippingAddress";
 import PaymentMethod from "./components/PaymentMethod";
 import OrderItems from "./components/OrderItems";
@@ -14,12 +14,7 @@ const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState("cash");
   const [loading, setLoading] = useState(false);
   const { cart } = useContext(CartContext);
-  useEffect(() => {
-    if (!user) {
-      toast.info("Please log in to continue checkout");
-      navigate("/sign");
-    }
-  }, [user, navigate]);
+
   const itemsPrice = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -51,7 +46,12 @@ const Checkout = () => {
         window.location.href = data.url;
       } catch (error) {
         toast.dismiss();
-        toast.error(error.message);
+        const message =
+          error.response?.data?.message ||
+          error.message ||
+          "Something went wrong. Please try again.";
+
+        toast.error(message);
       } finally {
         setLoading(false);
       }
@@ -62,7 +62,12 @@ const Checkout = () => {
         navigate("/payment-success-cash");
       } catch (error) {
         toast.dismiss();
-        toast.error(error.message);
+        const message =
+          error.response?.data?.message ||
+          error.message ||
+          "Something went wrong. Please try again.";
+
+        toast.error(message);
       } finally {
         setLoading(false);
       }

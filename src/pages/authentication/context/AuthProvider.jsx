@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
-import api from "../../../lib/axios";
+import axios from "../../../lib/axios";
 import { toast } from "react-toastify";
 import { AuthContext } from "./AuthContext";
 
@@ -33,7 +33,7 @@ export function AuthProvider({ children }) {
         password: payload.password,
       };
       try {
-        const res = await api.post("/auth/signup", body);
+        const res = await axios.post("/auth/signup", body);
         const data = res.data?.data || res.data?.user || res.data;
         persistAuth(data);
         return true;
@@ -48,7 +48,7 @@ export function AuthProvider({ children }) {
   const login = useCallback(
     async (payload) => {
       try {
-        const res = await api.post("/auth/login", payload);
+        const res = await axios.post("/auth/login", payload);
         const data = res.data?.data || res.data?.user || res.data;
         persistAuth(data);
         return data;
@@ -62,7 +62,7 @@ export function AuthProvider({ children }) {
 
   const forgotPassword = useCallback(async ({ email }) => {
     try {
-      await api.post("/auth/forgotPassword", { email });
+      await axios.post("/auth/forgotPassword", { email });
       return true;
     } catch (e) {
       toast.error(e.response?.data?.message || "Forgot password failed");
@@ -72,7 +72,7 @@ export function AuthProvider({ children }) {
 
   const resetPassword = useCallback(async (token, { password }) => {
     try {
-      await api.patch(`/auth/resetPassword/${token}`, { password });
+      await axios.patch(`/auth/resetPassword/${token}`, { password });
       return true;
     } catch (e) {
       toast.error(e.response?.data?.message || "Reset Password failed");
@@ -80,7 +80,9 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  const logout = useCallback(() => {
+  const logout = useCallback(async () => {
+    window.dispatchEvent(new Event("beforeLogout"));
+    await new Promise((res) => setTimeout(res, 500));
     clearAuth();
   }, [clearAuth]);
 

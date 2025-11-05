@@ -9,44 +9,48 @@ export function CartProvider({ children }) {
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    const fetchCart = async () => {
-      if (user) {
-        try {
-          const localCart = JSON.parse(localStorage.getItem("cart")) || [];
-          const { data } = await axios.get("/cart");
-          const backendCart = data.cart || [];
-          const mergedCart = mergeCarts(backendCart, localCart);
-          await axios.post("/cart", { cart: mergedCart });
-          localStorage.removeItem("cart");
+    const handleCartOnLogin = async () => {
+      if (!user) return;
 
-          setCart(mergedCart);
-        } catch (err) {
-          console.error("Failed to fetch or sync cart:", err);
-        }
-      } else {
-        const storedCart = localStorage.getItem("cart");
-        if (storedCart) setCart(JSON.parse(storedCart));
-        else setCart([]);
+      try {
+        const localCart = JSON.parse(localStorage.getItem("cart")) || [];
+        const { data } = await axios.get("/cart");
+        const backendCart = data.cart || [];
+
+        const mergedCart = mergeCarts(backendCart, localCart);
+
+        await axios.post("/cart", { cart: mergedCart });
+
+        localStorage.setItem("cart", JSON.stringify(mergedCart));
+        setCart(mergedCart);
+      } catch (err) {
+        console.error("Error syncing cart on login:", err);
       }
     };
 
-    fetchCart();
+    handleCartOnLogin();
   }, [user]);
 
   useEffect(() => {
-    if (user) {
-      const syncCart = async () => {
-        try {
-          await axios.post("/cart", { cart });
-        } catch (err) {
-          console.error("Failed to sync cart:", err);
-        }
-      };
-      if (cart.length > 0) syncCart();
-    } else {
-      localStorage.setItem("cart", JSON.stringify(cart));
-    }
-  }, [cart, user]);
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    const handleBeforeLogout = async () => {
+      if (!user) return;
+      try {
+        await axios.post("/cart", { cart });
+        setCart([]);
+      } catch (err) {
+        console.error("Error saving cart before logout:", err);
+      }
+    };
+
+    const onBeforeLogout = () => handleBeforeLogout();
+
+    window.addEventListener("beforeLogout", onBeforeLogout);
+    return () => window.removeEventListener("beforeLogout", onBeforeLogout);
+  }, [user, cart]);
 
   const addToCart = useCallback((item) => {
     setCart((prevCart) => {
@@ -54,11 +58,11 @@ export function CartProvider({ children }) {
       if (existing) {
         return prevCart.map((i) =>
           i.productId === item.productId
-            ? { ...i, quantity: i.quantity + 1 }
+            ? { ...i, quantity: i.quantity + item.quantity }
             : i
         );
       }
-      return [...prevCart, { ...item, quantity: 1 }];
+      return [...prevCart, { ...item, quantity: item.quantity }];
     });
     toast.success("Product added to cart successfully");
   }, []);
@@ -73,19 +77,10 @@ export function CartProvider({ children }) {
     );
   }, []);
 
-  const clearCart = useCallback(async () => {
+  const clearCart = useCallback(() => {
     setCart([]);
-
-    if (user) {
-      try {
-        await axios.post("/cart", { cart: [] });
-      } catch (err) {
-        console.error("Failed to clear backend cart:", err);
-      }
-    } else {
-      localStorage.removeItem("cart");
-    }
-  }, [user]);
+    localStorage.removeItem("cart");
+  }, []);
 
   return (
     <CartContext.Provider
