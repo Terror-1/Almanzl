@@ -70,10 +70,17 @@ export function CartProvider({ children }) {
   const removeFromCart = useCallback((productId) => {
     setCart((prev) => prev.filter((i) => i.productId !== productId));
   }, []);
-
   const updateQuantity = useCallback((productId, quantity) => {
     setCart((prev) =>
-      prev.map((i) => (i.productId === productId ? { ...i, quantity } : i))
+      prev
+        .map((item) => {
+          if (item.productId === productId) {
+            if (quantity <= 0) return null;
+            return { ...item, quantity };
+          }
+          return item;
+        })
+        .filter(Boolean)
     );
   }, []);
 

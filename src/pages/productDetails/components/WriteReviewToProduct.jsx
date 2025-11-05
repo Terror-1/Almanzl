@@ -1,16 +1,19 @@
+import { useContext } from "react";
 import Rating from "../../../components/Rating";
 import useProductReviews from "../context/productReviews/useProductReviews";
 import useRating from "../context/rating/useRating";
 import WriteReviewTextButton from "./WriteReviewTextButton";
+import { AuthContext } from "../../authentication/context/AuthContext";
 
 function WriteReviewToProduct() {
   const { productReviews } = useProductReviews();
   const [rating, setRating] = useRating();
+  const { user } = useContext(AuthContext);
 
   if (
-    productReviews.filter(
-      (review) => review.user._id === "69062d5680812c679d905a85"
-    ).length !== 0
+    user === null ||
+    productReviews.filter((review) => review.user._id === user?._id).length !==
+      0
   ) {
     return null;
   }

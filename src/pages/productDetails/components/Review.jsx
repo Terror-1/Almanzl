@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import ExpandableText from "../../../components/ExpandableText";
 import Rating from "../../../components/Rating";
 import { MoreVertical } from "lucide-react";
@@ -8,12 +8,15 @@ import EditReviewModal from "./EditReviewModal";
 import api from "../../../lib/axios";
 import Default from "@/assets/default.jpg";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../../authentication/context/AuthContext";
 
 function Review({ review }) {
   const { setProductReviews } = useProductReviews();
   const [showModal, setShowModal] = useState(false);
   const { id } = useParams();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { user } = useContext(AuthContext);
+
   const menuRef = useRef(null);
 
   const formattedDate = new Date(review.createdAt).toLocaleDateString("en-GB", {
@@ -60,7 +63,7 @@ function Review({ review }) {
 
         <Rating size={20} readonly value={+review.rating} />
 
-        {review.user._id === "69062d5680812c679d905a85" && (
+        {review.user._id === user?._id && (
           <div ref={menuRef} className="relative ml-2">
             <button
               onClick={() => setMenuOpen(!menuOpen)}
