@@ -10,19 +10,19 @@ import { SearchProvider } from "../context/search/SearchContext";
 import { ProductsProvider } from "../context/product/ProductContext";
 
 function App() {
-    return (
-        <Router>
-            <AuthProvider>
-                <CartProvider>
-                    <SearchProvider>
-                        <ProductsProvider>
-                            <ToastContainer position="top-right" autoClose={3000} />
-                            <AppRoutes />
-                        </ProductsProvider>
-                    </SearchProvider>
-                </CartProvider>
-            </AuthProvider>
-        </Router>
-    );
+  return (
+    <Router>
+      <AuthProvider>
+        <CartProvider>
+          <SearchProvider>
+            <ProductsProvider>
+              <ToastContainer position="top-right" autoClose={3000} />
+              <AppRoutes />
+            </ProductsProvider>
+          </SearchProvider>
+        </CartProvider>
+      </AuthProvider>
+    </Router>
+  );
 }
 export default App;

@@ -5,10 +5,12 @@ import { AuthContext } from "./AuthContext";
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) setUser(JSON.parse(storedUser));
+    setLoading(false);
   }, []);
 
   const persistAuth = useCallback((data) => {
@@ -118,6 +120,7 @@ export function AuthProvider({ children }) {
       logout,
       updateAddress,
       updateFavorites,
+      loading,
     }),
     [
       user,
@@ -128,6 +131,7 @@ export function AuthProvider({ children }) {
       logout,
       updateAddress,
       updateFavorites,
+      loading,
     ]
   );
 

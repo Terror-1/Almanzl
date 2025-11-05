@@ -30,12 +30,12 @@ export default function Contact() {
 
   return (
     <div className="font-poppins">
-      <section className="bg-black text-white flex items-center justify-center min-h-[60vh] text-center px-6">
+      <section className=" flex items-center justify-center min-h-[60vh] text-center px-6">
         <div className="max-w-3xl">
-          <h1 className="text-3xl md:text-5xl font-semibold leading-tight">
+          <h1 className="text-3xl md:text-5xl font-semibold text-black">
             Contact <span className="text-yellow-400">almanzl</span>
           </h1>
-          <p className="mt-4 text-gray-300 text-sm md:text-base">
+          <p className="mt-4 text-sm md:text-base">
             We’d love to hear from you, whether it’s a question, feedback, or a
             partnership idea.
           </p>

@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 
 export default function About() {
   return (
-    <div className="font-poppins">
-      <section className="bg-black text-white flex items-center justify-center">
+    <div>
+      <section className="flex items-center justify-center">
         <div className="max-w-6xl mx-auto px-6 md:px-10 py-24 text-center">
           <div className="max-w-3xl mx-auto">
             <h1 className="text-3xl md:text-5xl font-semibold leading-tight">
               About <span className="text-yellow-400">almanzl</span>
             </h1>
-            <p className="mt-4 text-gray-300">
+            <p className="mt-4">
               Quality products, honest pricing, and a delightful shopping
               experience — built for people, not just carts.
             </p>
