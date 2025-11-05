@@ -5,6 +5,11 @@ import { useForm } from "react-hook-form";
 import LoadingButton from "../../../components/LoadingButton";
 import { Input } from "../../admin-dashboard/components/Input";
 import InputError from "../../../components/InputError";
+import {
+  emailValidationRegex,
+  passwordValidationRegex,
+  phoneNumberValidationRegex,
+} from "../../../utils/regexHelpers";
 
 export default function Signup() {
   const { signup } = useContext(AuthContext);
@@ -52,7 +57,7 @@ export default function Signup() {
             {...signupForm("phone", {
               required: "Phone number is required",
               pattern: {
-                value: /^\+2[0-9]{10,15}$/,
+                value: phoneNumberValidationRegex,
                 message: "Enter a valid phone number",
               },
             })}
@@ -68,7 +73,7 @@ export default function Signup() {
             {...signupForm("email", {
               required: "Email is required",
               pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                value: emailValidationRegex,
                 message: "Enter a valid email",
               },
             })}
@@ -85,8 +90,7 @@ export default function Signup() {
             {...signupForm("password", {
               required: "Password is required",
               pattern: {
-                value:
-                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/,
+                value: passwordValidationRegex,
                 message:
                   "Password must be at least 8 characters long and include at least one letter, one number, and one special character.",
               },

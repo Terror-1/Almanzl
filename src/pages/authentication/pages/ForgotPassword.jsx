@@ -1,23 +1,27 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../authentication/context/AuthContext";
+import { useForm } from "react-hook-form";
 import LoadingButton from "../../../components/LoadingButton";
-import LoadingSpinner from "../../../components/LoadingSpinner";
-import ErrorBar from "../../../components/Error";
+import InputError from "../../../components/InputError";
 import { toast } from "react-toastify";
+import { emailValidationRegex } from "../../../utils/regexHelpers";
 
 export default function ForgotPassword() {
   const { forgotPassword } = useContext(AuthContext);
-  const [email, setEmail] = useState("");
-  const [msg, setMsg] = useState("");
 
-  const submit = async () => {
-    setMsg("");
-    if (!email) {
-      toast.error("Email is required");
-      return;
-    }
-    await forgotPassword({ email });
-    setMsg("If that email is registered, a reset link has been sent.");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    reset,
+  } = useForm({
+    mode: "onChange",
+  });
+
+  const onSubmit = async (data) => {
+    await forgotPassword(data);
+    toast.success("If that email is registered, a reset link has been sent.");
+    reset();
   };
 
   return (
@@ -26,25 +30,33 @@ export default function ForgotPassword() {
       <p className="text-gray-600 mb-3">
         Enter your email; we’ll send a reset link.
       </p>
-      {msg && <div className="text-green-700 mb-2">{msg}</div>}
 
-      <div className="space-y-3">
-        <input
-          className="w-full border rounded px-3 py-2"
-          placeholder="Email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
+        <div>
+          <input
+            className="w-full border rounded px-3 py-2"
+            placeholder="Email"
+            type="email"
+            autoComplete="email"
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: emailValidationRegex,
+                message: "Enter a valid email address",
+              },
+            })}
+          />
+          {errors.email && <InputError message={errors.email.message} />}
+        </div>
+
         <LoadingButton
-          title="Send reset link"
-          onClick={submit}
+          title={"Send reset link"}
+          type="submit"
           width="100%"
-          style={{
-            margin: "2rem auto",
-          }}
+          disabled={!isValid}
+          style={{ margin: "2rem auto" }}
         />
-      </div>
+      </form>
     </div>
   );
 }

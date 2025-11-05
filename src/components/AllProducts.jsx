@@ -8,7 +8,6 @@ import FilterSidebar from "./FilterSidebar";
 
 const AllProducts = () => {
     const { products, loading, error, page, setPage, limit } = useContext(ProductsContext);
-    console.log(products?.length, limit, products?.length !== limit)
 
     if (loading) {
         return <LoadingSpinner resource="products" />;
