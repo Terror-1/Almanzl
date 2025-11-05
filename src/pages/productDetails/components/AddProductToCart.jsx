@@ -4,11 +4,17 @@ import useProductQuantity from "../context/productQuantity/useProductQuantity";
 import ProductQuantity from "./ProductQuantity";
 import useProduct from "../context/product/useProduct";
 import { CartContext } from "../../cart/context/CartContext";
+import { AuthContext } from "../../authentication/context/AuthContext";
 
 export default function AddProductToCart({ product }) {
   const { addToCart } = useContext(CartContext);
   const [quantity] = useProductQuantity();
   const { setProduct } = useProduct();
+  const { user } = useContext(AuthContext);
+
+  if (!user || product.stock === 0) {
+    return;
+  }
 
   const handleSubmit = async () => {
     {

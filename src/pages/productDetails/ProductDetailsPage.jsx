@@ -10,6 +10,7 @@ import ProductQuantityProvider from "./context/productQuantity/ProductQuantityPr
 import { useFetch } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import ProductImagesCarousel from "./components/ProductImagesCarousel";
+import CircularProgressIndicator from "../../components/CircularProgressIndicator";
 
 function ProductDetailsPage() {
   const { id } = useParams();
@@ -19,7 +20,7 @@ function ProductDetailsPage() {
   }
 
   if (loading) {
-    return <LoadingSpinner resource={"Product"} />;
+    return <CircularProgressIndicator />;
   }
 
   return (

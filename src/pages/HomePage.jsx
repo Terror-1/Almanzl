@@ -4,7 +4,6 @@ import HeroCarousel from "../components/HeroCarousel";
 import Carousel from "../components/Carousal";
 import FeaturesSection from "../components/FeaturesSection";
 import { useGetProductsQuery } from "../slices/productsSlice";
-import { useGetTopProductsQuery } from "../slices/statisticsSlice";
 import ReviewsSlider from "../components/ReviewsSlider";
 
 function HomePage() {
@@ -12,11 +11,6 @@ function HomePage() {
     page: 8,
     limit: 3,
   });
-  const {
-    data: topProducts,
-    error: topProductsError,
-    isLoading: topProductsLoading,
-  } = useGetTopProductsQuery();
 
   return (
     <div className="font-sans text-gray-800">

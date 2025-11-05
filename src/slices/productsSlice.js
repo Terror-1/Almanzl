@@ -73,6 +73,14 @@ export const productApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ["Product"],
     }),
+
+    getProductsByCategory: builder.query({
+      query: (categoryId) => ({
+        url: `${PRODUCTS}/category/${categoryId}`,
+        method: "GET",
+      }),
+      providesTags: ["Product"],
+    }),
   }),
 });
 
@@ -83,4 +91,5 @@ export const {
   useUpdateProductMutation,
   useDeleteProductMutation,
   useSearchProductsQuery,
+  useGetProductsByCategoryQuery,
 } = productApiSlice;

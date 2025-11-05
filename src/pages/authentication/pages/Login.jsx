@@ -4,6 +4,7 @@ import { AuthContext } from "../../authentication/context/AuthContext";
 import { useForm } from "react-hook-form";
 import LoadingButton from "../../../components/LoadingButton";
 import InputError from "../../../components/InputError";
+import { emailValidationRegex } from "../../../utils/regexHelpers";
 
 export default function Login() {
   const { login } = useContext(AuthContext);
@@ -43,7 +44,7 @@ export default function Login() {
             {...loginForm("email", {
               required: "Email is required",
               pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                value: emailValidationRegex,
                 message: "Enter a valid email",
               },
             })}
