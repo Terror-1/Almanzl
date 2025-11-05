@@ -11,6 +11,7 @@ export default function Rating({
   color = "#facc15",
   emptyColor = "#1E2939",
   readonly = false,
+  showText = true,
 }) {
   const [internalValue, setInternalValue] = useState(value ?? 0);
   const [hoverValue, setHoverValue] = useState(undefined);
