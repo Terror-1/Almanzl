@@ -25,6 +25,7 @@ import ForgotPassword from "../pages/authentication/pages/ForgotPassword";
 import ResetPassword from "../pages/authentication/pages/ResetPassword";
 import Profile from "../pages/ProfilePage";
 import AllProducts from "../components/AllProducts";
+import AboutUs from "../pages/aboutUs/aboutUs";
 
 function AppRoutes() {
   return (
@@ -41,7 +42,7 @@ function AppRoutes() {
           }
         />
         <Route path="/contact" element={<h1>contact</h1>} />
-        <Route path="/about" element={<h1>about</h1>} />
+        <Route path="/about" element={<AboutUs />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
