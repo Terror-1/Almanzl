@@ -31,6 +31,7 @@ import Categories from "../pages/admin-dashboard/Categories";
 import AddCategory from "../pages/admin-dashboard/AddCategory";
 import AddProduct from "../pages/admin-dashboard/AddProduct";
 import UsersTable from "../pages/admin-dashboard/components/tables/Users";
+import UserOrders from "../pages/UserOrders";
 
 function AppRoutes() {
   return (
@@ -50,12 +51,10 @@ function AppRoutes() {
         />
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<AboutUs />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/resetPassword/:token" element={<ResetPassword />} />
-        <Route path="/orders" element={<h1>orders</h1>} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/payment-success" element={<SuccessPayment />} />
         <Route path="/payment-success-cash" element={<SucessCashPayment />} />
@@ -64,6 +63,8 @@ function AppRoutes() {
         {/* User routes */}
         <Route element={<ProtectedRoutes userOnly />}>
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/orders" element={<UserOrders />} />
         </Route>
       </Route>
 
