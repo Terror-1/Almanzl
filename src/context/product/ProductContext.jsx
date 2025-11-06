@@ -50,20 +50,11 @@ export const ProductsProvider = ({ children }) => {
     }, [page, limit, category, priceRange]);
 
     let productsUrl = `/products?page=${page}&limit=${limit}`;
-
-    const isSearching = query && query.trim().length > 0;
-    if(isSearching) {
-        productsUrl += `&name=${query}`;
-    }
-    else if(category) {
-        productsUrl += `&category=${category}`;
-        if (priceRange.min > 0) productsUrl += `&price[gte]=${priceRange.min}`;
-        if (priceRange.max < 10_000) productsUrl += `&price[lte]=${priceRange.max}`;
-    }
+    if(query && query.trim().length > 0) productsUrl += `&name=${query}`;
+    if(category) productsUrl += `&category=${category}`;
+    if (priceRange.min > 0) productsUrl += `&price[gte]=${priceRange.min}`;
+    if (priceRange.max < 10_000) productsUrl += `&price[lte]=${priceRange.max}`;
     
-    if (!isSearching && priceRange.min > 0) productsUrl += `&price[gte]=${priceRange.min}`;
-    if (!isSearching && priceRange.max < 10_000) productsUrl += `&price[lte]=${priceRange.max}`;
-
     const { data, loading, error } = useFetch(productsUrl);
 
     useEffect(() => {

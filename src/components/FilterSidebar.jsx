@@ -29,7 +29,6 @@ const FilterSidebar = () => {
     const handlePriceChange = (e) => {
         const { name, value } = e.target;
         setLocalPriceRange((prev) => ({ ...prev, [name]: Number(value) * 1 || 0 }));
-        setCategory("");
     };
     
     useEffect(() => {
@@ -53,8 +52,6 @@ const FilterSidebar = () => {
     };
 
     const chooseCategory = (e, id) => {
-        setQuery("");
-        setPriceRange({ min: 0, max: 10_000 });
         setCategory(id);
     };
 

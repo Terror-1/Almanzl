@@ -29,7 +29,7 @@ export default function Navbar() {
     }, []);
 
 
-    // const { setCategory, setPriceRange } = useContext(ProductsContext);
+    const { setCategory, setPriceRange } = useContext(ProductsContext);
     const handleSearch = (e) => {
         setSearchWord(e.target.value)
     };
@@ -39,10 +39,15 @@ export default function Navbar() {
             navigate('/products');
             setQuery(searchWord);
             e.target.blur();
-            console.log('searching', searchWord);
-            // setCategory("");
-            // setPriceRange({ min: 0, max: 10_000 });            
+            setCategory("");
+            setPriceRange({ min: 0, max: 10_000 });            
         }
+    }
+
+    const handleShop = () => { 
+        setQuery("");
+        setCategory("");
+        setPriceRange({ min: 0, max: 10_000 });
     }
 
 
@@ -58,7 +63,7 @@ export default function Navbar() {
                         <Link to="/">Home</Link>
                     </li>
                     <li className="hover:text-yellow-400 cursor-pointer">
-                        <Link to="products">Shop</Link>
+                        <Link to="products" onClick={handleShop}>Shop</Link>
                     </li>
                     <li className="hover:text-yellow-400 cursor-pointer">
                         <Link to="about">About us</Link>
