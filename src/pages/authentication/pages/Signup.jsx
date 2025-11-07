@@ -53,12 +53,12 @@ export default function Signup() {
         <div>
           <input
             className="w-full border rounded px-3 py-2"
-            placeholder="Phone"
+            placeholder="+201005589780"
             {...signupForm("phone", {
               required: "Phone number is required",
               pattern: {
                 value: phoneNumberValidationRegex,
-                message: "Enter a valid phone number",
+                message: "Enter a valid phone number +20 ",
               },
             })}
           />
